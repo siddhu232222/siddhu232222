@@ -19,7 +19,7 @@
   *Automatic water temperature demon. Heats in winter (coz you're freezing your regrets), cools in summer (coz boiling alive sucks). 40% energy savings – bills fear me now.*  
   Built with: Arduino, C++, Peltier modules, DS18B20 sensors, relays, LCD display
 
-
+  
 - 🌱 **Learning Path**: Escaping C's segfault prison → **Python dev** (web scrapers, bots, automation, maybe some AI potions soon™)  
 - 💻 **Daily Grind**: Arduino hacks, sensor witchcraft, debugging in the dark (literally — Bangalore power cuts + traffic chaos hit different 🕯️🚦)  
 - 👯 **Collab?** Nah, **just vibing**. DM if your project involves cursed hardware or cursed Python memes.  
@@ -36,23 +36,6 @@
 <br/>
 <small><i>C for pain • Python for gain • Arduino for "why won't this work?!" screams</i></small>
 </p>
-
----
-
-## 📈 **GitHub Ghost Stats** (Judge if you dare 💀)
-<p align="center">
-<a href="https://github.com/siddhu232222">
-  <img height="180" src="https://github-readme-stats.vercel.app/api?username=siddhu232222&show_icons=true&theme=dracula&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1117&title_color=BD93F9&text_color=F8F8F2" alt="Siddhu's GitHub Stats"/>
-</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://github.com/siddhu232222">
-  <img height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=siddhu232222&theme=dracula&hide_border=true&background=0d1117&stroke=BD93F9&ring=50FA7B&fire=FF5555&currStreakNum=F1FA8C&sideNums=F8F8F2&currStreakLabel=F1FA8C&sideLabels=F8F8F2&dates=F8F8F2" alt="Streak Stats"/>
-</a>
-</p>
-
-<div align="center">
-<img src="https://github-profile-trophy.vercel.app/?username=siddhu232222&theme=dracula&no-frame=true&no-bg=true&margin-w=15&column=4" alt="Trophies"/>
-</div>
 
 ---
 
@@ -82,3 +65,77 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/siddhu232222/siddhu232222/output/github-contribution-grid-snake.svg" alt="Snake eating your contributions"/>
 </div>
+
+
+### 🎮 Challenge the Void: Tic-Tac-Toe
+**You** = X • **The Void** = O • Beat it if you dare...
+
+<div id="tic-tac-toe" style="font-family: monospace; text-align:center; margin: 30px auto; max-width: 320px;">
+  <div id="board" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 auto;">
+    <button onclick="makeMove(0)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(1)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(2)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(3)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(4)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(5)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(6)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(7)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+    <button onclick="makeMove(8)" style="width:100px;height:100px;font-size:48px;background:#1a1a1a;color:#bd93f9;border:2px solid #44475a;cursor:pointer;border-radius:6px;"></button>
+  </div>
+  <p id="status" style="margin:20px 0;font-size:20px;color:#f8f8f2;">Your move, mortal...</p>
+  <button onclick="resetGame()" style="padding:10px 24px;background:#44475a;color:#bd93f9;border:none;border-radius:6px;cursor:pointer;font-size:16px;">Reset the Void</button>
+</div>
+
+<script>
+  let board = Array(9).fill(null);
+  let currentPlayer = 'X';
+
+  function makeMove(index) {
+    if (board[index] || checkWinner()) return;
+    board[index] = currentPlayer;
+    document.querySelectorAll('#board button')[index].textContent = currentPlayer;
+    if (checkWinner()) {
+      document.getElementById('status').textContent = currentPlayer === 'X' ? 'You escaped the void... for now 😈' : 'The void consumes all 💀';
+      return;
+    }
+    if (!board.includes(null)) {
+      document.getElementById('status').textContent = 'Stalemate... even the void is bored 🤷‍♂️';
+      return;
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    if (currentPlayer === 'O') setTimeout(computerMove, 500);
+  }
+
+  function computerMove() {
+    let available = board.map((v,i) => v===null ? i : null).filter(v=>v!==null);
+    if (available.length === 0) return;
+    let move = available[Math.floor(Math.random()*available.length)];
+    board[move] = 'O';
+    document.querySelectorAll('#board button')[move].textContent = 'O';
+    if (checkWinner()) {
+      document.getElementById('status').textContent = 'The void consumes all 💀';
+      return;
+    }
+    if (!board.includes(null)) {
+      document.getElementById('status').textContent = 'Stalemate... even the void is bored 🤷‍♂️';
+      return;
+    }
+    currentPlayer = 'X';
+  }
+
+  function checkWinner() {
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    return wins.some(combo => combo.every(i => board[i] === currentPlayer));
+  }
+
+  function resetGame() {
+    board = Array(9).fill(null);
+    currentPlayer = 'X';
+    document.querySelectorAll('#board button').forEach(b => b.textContent = '');
+    document.getElementById('status').textContent = 'Your move, mortal...';
+  }
+</script>
+
+---
+
+*Made with 🖤, segfaults, overpriced Bangalore cold brew, and a little void magic • Last updated: 2026 • Forks/Stars = eternal haunting rights 😏*
